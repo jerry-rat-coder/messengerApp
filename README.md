@@ -1,34 +1,79 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+实时聊天应用，默认所有用户互为好友，可创建群组
 
-## Getting Started
+技术栈：Nextjs13.4(app router)、react hooks、ts、tailwindcss、prisma、zustand等
 
-First, run the development server:
+## 在线预览：https://messenger-next-gamma.vercel.app/
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+- 使用 Pusher 进行实时消息传递
+- 消息通知和警报
+- 流畅的 UI 顺风设计
+- 顺风动画和过渡效果
+- 对所有设备的完全响应
+- 使用 NextAuth 进行凭证身份验证
+- 谷歌身份验证集成
+- Github身份验证集成
+- 使用Cloudinary CDN上传文件和图像
+- 使用react-hook-form进行客户端表单验证和处理
+- 使用react-toast处理服务器错误
+- 消息已读回执
+- 在线/离线用户状态
+- 群组聊天和一对一消息传递
+- 消息附件和文件共享
+- 用户个人资料定制和设置
+- 如何在路由处理程序 (app/api) 中编写 POST、GET 和 DELETE 路由
+- 如何通过直接访问数据库来获取服务器React组件中的数据（没有API！就像Magic一样！）
+- 在实时环境中处理服务器和子组件之间的关系
+- 创建和管理聊天室和频道
+
+### Cloning the repository
+
+```shell
+git clone https://github.com/AntonioErdeljac/next13-messenger.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Install packages
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```shell
+npm i
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Setup .env file
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+```js
+DATABASE_URL=
+NEXTAUTH_SECRET=
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+NEXT_PUBLIC_PUSHER_APP_KEY=
+PUSHER_APP_ID=
+PUSHER_SECRET=
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=
 
-## Deploy on Vercel
+GITHUB_ID=
+GITHUB_SECRET=
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Setup Prisma
+
+```shell
+npx prisma db push
+
+```
+
+### Start the app
+
+```shell
+npm run dev
+```
+
+## Available commands
+
+Running commands with npm `npm run [command]`
+
+| command         | description                              |
+| :-------------- | :--------------------------------------- |
+| `dev`           | Starts a development instance of the app |
