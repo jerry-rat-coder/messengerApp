@@ -1,0 +1,94 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  name           String?
+  email          String?   @unique
+  emailVerified  DateTime?
+  image          String?
+  hashedPassword String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  conversationIds String[]       @db.ObjectId
+  conversations   Conversation[] @relation(fields: [conversationIds], references: [id])
+
+  seenMessageIds String[]  @db.ObjectId
+  seenMessages   Message[] @relation("Seen", fields: [seenMessageIds], references: [id])
+
+  accounts Account[]
+  messages Message[]
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Conversation {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt     DateTime @default(now())
+  lastMessageAt DateTime @default(now())
+  name          String?
+  isGroup       Boolean?
+
+  messagesIds String[]  @db.ObjectId
+  messages    Message[]
+
+  userIds String[] @db.ObjectId
+  users   User[]   @relation(fields: [userIds], references: [id])
+}
+
+model Message {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  body      String?
+  image     String?
+  createdAt DateTime @default(now())
+
+  seenIds String[] @db.ObjectId
+  seen    User[]   @relation("Seen", fields: [seenIds], references: [id])
+
+  conversationId String       @db.ObjectId
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  senderId String @db.ObjectId
+  sender   User   @relation(fields: [senderId], references: [id], onDelete: Cascade)
+}
+
+// Access Token（访问令牌）：用户通过身份验证后，服务器会发放access token。客户端在后续请求中使用此令牌，来证明自己已经成功地进行了身份验证，因此可以访问特定的资源（如API端点）。这个令牌通常有一定的有效期，在有效期内，服务器可以接受这个令牌并提供服务，无需用户再次进行身份验证。
+
+// Refresh Token（刷新令牌）：在access token过期或者失效后，用户需要重新获取access token。为了避免用户每次都需要输入用户名和密码来获取新的access token，OAuth2.0引入了refresh token机制。用户在第一次验证成功后，除了获取access token，还会获得一个refresh token。当access token过期后，用户可以通过提交refresh token来获取新的access token，而无需再次输入用户名和密码。
+
+// ID Token：这是OpenID Connect特有的一个概念。ID token中包含了用户的身份信息（identity information）。服务器在用户成功验证后，会发放ID token。客户端可以解析和校验这个ID token，从而获取到用户的身份信息。这可以避免客户端需要再次请求服务器来获取这些信息。
+
+// 注意，这三个令牌都需要安全地存储和传输，以防止他们被恶意第三方获取并用于身份伪装。Access Token（访问令牌）：用户通过身份验证后，服务器会发放access token。客户端在后续请求中使用此令牌，来证明自己已经成功地进行了身份验证，因此可以访问特定的资源（如API端点）。这个令牌通常有一定的有效期，在有效期内，服务器可以接受这个令牌并提供服务，无需用户再次进行身份验证。
+
+// Refresh Token（刷新令牌）：在access token过期或者失效后，用户需要重新获取access token。为了避免用户每次都需要输入用户名和密码来获取新的access token，OAuth2.0引入了refresh token机制。用户在第一次验证成功后，除了获取access token，还会获得一个refresh token。当access token过期后，用户可以通过提交refresh token来获取新的access token，而无需再次输入用户名和密码。
+
+// ID Token：这是OpenID Connect特有的一个概念。ID token中包含了用户的身份信息（identity information）。服务器在用户成功验证后，会发放ID token。客户端可以解析和校验这个ID token，从而获取到用户的身份信息。这可以避免客户端需要再次请求服务器来获取这些信息。
+
+// 注意，这三个令牌都需要安全地存储和传输，以防止他们被恶意第三方获取并用于身份伪装。
