@@ -8,7 +8,7 @@ import { Fragment, useCallback, useMemo, useState } from 'react';
 import { IoClose, IoTrash } from 'react-icons/io5'
 import ConfirmModal from './ConfirmModal';
 import AvatarGroup from '@/app/components/AvatarGroup';
-import isOnline from '@/app/libs/isOnline';
+import useActiveList from '@/app/hooks/useActive';
 
 interface DrawerProfileProps {
     isOpen: boolean,
@@ -23,6 +23,7 @@ const DrawerProfile: React.FC<DrawerProfileProps> = ({
     onClose,
     data
 }) => {
+    const { members } = useActiveList();
     const [confirmOpen, setConfirmOpen] = useState(false);
     const otherUser = useOtherUsers(data);
 
@@ -32,7 +33,9 @@ const DrawerProfile: React.FC<DrawerProfileProps> = ({
         return data.name || otherUser.name;
     }, [data.name, otherUser.name]);
 
-    const {isActive, members} = isOnline(otherUser.email!);
+    const isActive =  members.some((memberEmail) => {
+        return memberEmail === otherUser.email;
+    })
     
     const statusText = useMemo(() => {
         if(data.isGroup){

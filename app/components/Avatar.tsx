@@ -1,9 +1,8 @@
 'use client';
 import Image from "next/image";
 import {User} from '@prisma/client'
-import useActiveList from "../hooks/useActive";
 import { useMemo } from "react";
-import isOnline from "../libs/isOnline";
+import useActiveList from "../hooks/useActive";
 type AvatarProps = {
     user: User
 }
@@ -11,10 +10,13 @@ type AvatarProps = {
 const Avatar = ({
     user
 }:AvatarProps) => {
-    const {isActive} = isOnline(user.email!);
+    const {members} = useActiveList();
+    const isActive = members.some((memberEmail) => {
+        return memberEmail === user.email;
+    })
     return ( 
         <div className="relative">
-            <div className=" relative rounded-full inline-block overflow-hidden h-9 w-9 md:w-11 md:h-11">
+            <div className=" relative  rounded-full inline-block overflow-hidden h-9 w-9 md:w-11 md:h-11">
                 <Image
                 src={user?.image || '/images/placeholder.jpg'}
                 alt='Avatar'

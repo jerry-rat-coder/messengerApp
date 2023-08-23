@@ -61,7 +61,6 @@ GOOGLE_CLIENT_SECRET=
 
 ```shell
 npx prisma db push
-
 ```
 
 ### Start the app
@@ -69,11 +68,3 @@ npx prisma db push
 ```shell
 npm run dev
 ```
-
-## Available commands
-
-Running commands with npm `npm run [command]`
-
-| command         | description                              |
-| :-------------- | :--------------------------------------- |
-| `dev`           | Starts a development instance of the app |

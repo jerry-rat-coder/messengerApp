@@ -12,7 +12,7 @@ var AvatarGroup = function (_a) {
     ];
     return (React.createElement("div", { className: "relative w-11 h-11" }, slicedUsers.map(function (user, index) {
         var _a;
-        return (React.createElement("div", { className: "absolute inline-block w-[21px] h-[21px] rounded-full overflow-hidden " + postionMap[index] },
+        return (React.createElement("div", { key: user.id, className: "absolute inline-block w-[21px] h-[21px] rounded-full overflow-hidden " + postionMap[index] },
             React.createElement(image_1["default"], { alt: 'Avatar', src: (_a = user.image) !== null && _a !== void 0 ? _a : '/images/placeholder.jpg', fill: true })));
     })));
 };

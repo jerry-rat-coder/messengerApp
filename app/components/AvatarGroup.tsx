@@ -19,7 +19,9 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({
         <div className="relative w-11 h-11">
             {
                 slicedUsers.map((user, index) => (
-                    <div className={`absolute inline-block w-[21px] h-[21px] rounded-full overflow-hidden ${postionMap[index]}`}>
+                    <div 
+                    key={user.id}
+                    className={`absolute inline-block w-[21px] h-[21px] rounded-full overflow-hidden ${postionMap[index]}`}>
                         <Image 
                         alt='Avatar'
                         src={user.image ?? '/images/placeholder.jpg'}
