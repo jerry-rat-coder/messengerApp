@@ -2,7 +2,7 @@
 
 技术栈：Nextjs13.4(app router)、react hooks、ts、tailwindcss、prisma、zustand等
 
-## 在线预览：https://messenger-next-gamma.vercel.app/
+## 在线预览：https://messenger-dc0kvqmh3-doc998.vercel.app/
 
 - 使用 Pusher 进行实时消息传递
 - 新消息通知和提醒
