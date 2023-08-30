@@ -1,7 +1,7 @@
-import SideBar from "../components/sidebar/SideBar";
-import ConversationList from "./components/ConversationList";
-import getConversations from "../actions/getConversations";
-import getUsers from "../actions/getUsers";
+import SideBar from "@/app/components/sidebar/SideBar";
+import ConversationList from "@/app/conversations/components/ConversationList";
+import getConversations from "@/app/actions/getConversations";
+import getUsers from "@/app/actions/getUsers";
 const ConversationsLayout = async ({
     children
 }:{
